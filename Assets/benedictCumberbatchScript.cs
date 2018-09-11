@@ -268,6 +268,7 @@ public class benedictCumberbatchScript : MonoBehaviour
             Debug.LogFormat("[Benedict Cumberbatch #{0}] More than half of the modules have now been solved. The left suffix is being recalculated.", moduleId);
             solveAddition = true;
             calculatedLeft = true;
+            leftIndex = 0;
             CalculateLeftSuffix();
             if(!calculatedRight)
             {
