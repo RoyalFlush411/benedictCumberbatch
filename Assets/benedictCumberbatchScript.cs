@@ -5,6 +5,22 @@ using System.Linq;
 using UnityEngine;
 using benedictCumberbatch;
 
+public static class Extensions
+{
+    private static System.Random rng = new System.Random();
+    public static void Shuffle<T>(this IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1) {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+}
+
 public class benedictCumberbatchScript : MonoBehaviour
 {
     public KMBombInfo Bomb;
@@ -33,7 +49,9 @@ public class benedictCumberbatchScript : MonoBehaviour
     public string displayedLeftWord = "";
     private int leftBase;
     public string[] prefixes;
+    public string[] shuffledPrefixes;
     private int benIndex = 0;
+    private string correctLeftAnswer = "";
 
     public TextMesh rightScreen;
     public string[] rightScreenOptions;
@@ -44,7 +62,9 @@ public class benedictCumberbatchScript : MonoBehaviour
     public string displayedRightWord = "";
     private int rightBase;
     public string[] suffixes;
+    public string[] shuffledSuffixes;
     private int cumIndex = 0;
+    private string correctRightAnswer = "";
 
     string leftScreenSaved = "";
     string rightScreenSaved = "";
@@ -74,7 +94,12 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                leftCardsText[i].text = prefixes[i];
+                shuffledPrefixes[i] = prefixes[i];
+            }
+            shuffledPrefixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                leftCardsText[i].text = shuffledPrefixes[i];
             }
             leftScreen.text = leftScreenOptions[0];
             leftBase = 0;
@@ -83,7 +108,12 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                leftCardsText[i].text = prefixes[i+10];
+                shuffledPrefixes[i] = prefixes[i+10];
+            }
+            shuffledPrefixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                leftCardsText[i].text = shuffledPrefixes[i];
             }
             leftScreen.text = leftScreenOptions[1];
             leftBase = 10;
@@ -92,7 +122,12 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                leftCardsText[i].text = prefixes[i+20];
+                shuffledPrefixes[i] = prefixes[i+20];
+            }
+            shuffledPrefixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                leftCardsText[i].text = shuffledPrefixes[i];
             }
             leftScreen.text = leftScreenOptions[2];
             leftBase = 20;
@@ -101,7 +136,12 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                leftCardsText[i].text = prefixes[i+30];
+                shuffledPrefixes[i] = prefixes[i+30];
+            }
+            shuffledPrefixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                leftCardsText[i].text = shuffledPrefixes[i];
             }
             leftScreen.text = leftScreenOptions[3];
             leftBase = 30;
@@ -110,46 +150,215 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                leftCardsText[i].text = prefixes[i+40];
+                shuffledPrefixes[i] = prefixes[i+40];
+            }
+            shuffledPrefixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                leftCardsText[i].text = shuffledPrefixes[i];
             }
             leftScreen.text = leftScreenOptions[4];
             leftBase = 40;
         }
         else if(benIndex == 25)
         {
+            int listDeterminer = UnityEngine.Random.Range(0,5);
+            if(listDeterminer == 0)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i];
+                }
+                leftBase = 0;
+            }
+            else if(listDeterminer == 1)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+10];
+                }
+                leftBase = 10;
+            }
+            else if(listDeterminer == 2)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+20];
+                }
+                leftBase = 20;
+            }
+            else if(listDeterminer == 3)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+30];
+                }
+                leftBase = 30;
+            }
+            else if(listDeterminer == 4)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+40];
+                }
+                leftBase = 40;
+            }
+            shuffledPrefixes.Shuffle();
             for(int i = 0; i <= 9; i++)
             {
-                leftCardsText[i].text = prefixes[i+10];
+                leftCardsText[i].text = shuffledPrefixes[i];
             }
             leftScreen.text = leftScreenOptions[5];
-            leftBase = 10;
         }
         else if(benIndex == 26)
         {
+            int listDeterminer = UnityEngine.Random.Range(0,5);
+            if(listDeterminer == 0)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i];
+                }
+                leftBase = 0;
+            }
+            else if(listDeterminer == 1)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+10];
+                }
+                leftBase = 10;
+            }
+            else if(listDeterminer == 2)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+20];
+                }
+                leftBase = 20;
+            }
+            else if(listDeterminer == 3)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+30];
+                }
+                leftBase = 30;
+            }
+            else if(listDeterminer == 4)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+40];
+                }
+                leftBase = 40;
+            }
+            shuffledPrefixes.Shuffle();
             for(int i = 0; i <= 9; i++)
             {
-                leftCardsText[i].text = prefixes[i+20];
+                leftCardsText[i].text = shuffledPrefixes[i];
             }
             leftScreen.text = leftScreenOptions[6];
-            leftBase = 20;
         }
         else if(benIndex == 27)
         {
+            int listDeterminer = UnityEngine.Random.Range(0,5);
+            if(listDeterminer == 0)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i];
+                }
+                leftBase = 0;
+            }
+            else if(listDeterminer == 1)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+10];
+                }
+                leftBase = 10;
+            }
+            else if(listDeterminer == 2)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+20];
+                }
+                leftBase = 20;
+            }
+            else if(listDeterminer == 3)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+30];
+                }
+                leftBase = 30;
+            }
+            else if(listDeterminer == 4)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+40];
+                }
+                leftBase = 40;
+            }
+            shuffledPrefixes.Shuffle();
             for(int i = 0; i <= 9; i++)
             {
-                leftCardsText[i].text = prefixes[i+30];
+                leftCardsText[i].text = shuffledPrefixes[i];
             }
             leftScreen.text = leftScreenOptions[7];
-            leftBase = 30;
         }
         else if(benIndex == 28)
         {
+            int listDeterminer = UnityEngine.Random.Range(0,5);
+            if(listDeterminer == 0)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i];
+                }
+                leftBase = 0;
+            }
+            else if(listDeterminer == 1)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+10];
+                }
+                leftBase = 10;
+            }
+            else if(listDeterminer == 2)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+20];
+                }
+                leftBase = 20;
+            }
+            else if(listDeterminer == 3)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+30];
+                }
+                leftBase = 30;
+            }
+            else if(listDeterminer == 4)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledPrefixes[i] = prefixes[i+40];
+                }
+                leftBase = 40;
+            }
+            shuffledPrefixes.Shuffle();
             for(int i = 0; i <= 9; i++)
             {
-                leftCardsText[i].text = prefixes[i+40];
+                leftCardsText[i].text = shuffledPrefixes[i];
             }
             leftScreen.text = leftScreenOptions[8];
-            leftBase = 40;
         }
 
 
@@ -158,7 +367,12 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                rightCardsText[i].text = suffixes[i];
+                shuffledSuffixes[i] = suffixes[i];
+            }
+            shuffledSuffixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                rightCardsText[i].text = shuffledSuffixes[i];
             }
             rightScreen.text = rightScreenOptions[0];
             rightBase = 0;
@@ -167,7 +381,12 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                rightCardsText[i].text = suffixes[i+10];
+                shuffledSuffixes[i] = suffixes[i+10];
+            }
+            shuffledSuffixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                rightCardsText[i].text = shuffledSuffixes[i];
             }
             rightScreen.text = rightScreenOptions[1];
             rightBase = 10;
@@ -176,7 +395,12 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                rightCardsText[i].text = suffixes[i+20];
+                shuffledSuffixes[i] = suffixes[i+20];
+            }
+            shuffledSuffixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                rightCardsText[i].text = shuffledSuffixes[i];
             }
             rightScreen.text = rightScreenOptions[2];
             rightBase = 20;
@@ -185,7 +409,12 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                rightCardsText[i].text = suffixes[i+30];
+                shuffledSuffixes[i] = suffixes[i+30];
+            }
+            shuffledSuffixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                rightCardsText[i].text = shuffledSuffixes[i];
             }
             rightScreen.text = rightScreenOptions[3];
             rightBase = 30;
@@ -194,49 +423,218 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             for(int i = 0; i <= 9; i++)
             {
-                rightCardsText[i].text = suffixes[i+40];
+                shuffledSuffixes[i] = suffixes[i+40];
+            }
+            shuffledSuffixes.Shuffle();
+            for(int i = 0; i <= 9; i++)
+            {
+                rightCardsText[i].text = shuffledSuffixes[i];
             }
             rightScreen.text = rightScreenOptions[4];
             rightBase = 40;
         }
         else if(cumIndex == 25)
         {
+            int listDeterminer = UnityEngine.Random.Range(0,5);
+            if(listDeterminer == 0)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i];
+                }
+                rightBase = 0;
+            }
+            else if(listDeterminer == 1)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+10];
+                }
+                rightBase = 10;
+            }
+            else if(listDeterminer == 2)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+20];
+                }
+                rightBase = 20;
+            }
+            else if(listDeterminer == 3)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+30];
+                }
+                rightBase = 30;
+            }
+            else if(listDeterminer == 4)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+40];
+                }
+                rightBase = 40;
+            }
+            shuffledSuffixes.Shuffle();
             for(int i = 0; i <= 9; i++)
             {
-                rightCardsText[i].text = suffixes[i+10];
+                rightCardsText[i].text = shuffledSuffixes[i];
             }
             rightScreen.text = rightScreenOptions[5];
-            rightBase = 10;
         }
         else if(cumIndex == 26)
         {
+            int listDeterminer = UnityEngine.Random.Range(0,5);
+            if(listDeterminer == 0)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i];
+                }
+                rightBase = 0;
+            }
+            else if(listDeterminer == 1)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+10];
+                }
+                rightBase = 10;
+            }
+            else if(listDeterminer == 2)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+20];
+                }
+                rightBase = 20;
+            }
+            else if(listDeterminer == 3)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+30];
+                }
+                rightBase = 30;
+            }
+            else if(listDeterminer == 4)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+40];
+                }
+                rightBase = 40;
+            }
+            shuffledSuffixes.Shuffle();
             for(int i = 0; i <= 9; i++)
             {
-                rightCardsText[i].text = suffixes[i+20];
+                rightCardsText[i].text = shuffledSuffixes[i];
             }
             rightScreen.text = rightScreenOptions[6];
-            rightBase = 20;
         }
         else if(cumIndex == 27)
         {
+            int listDeterminer = UnityEngine.Random.Range(0,5);
+            if(listDeterminer == 0)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i];
+                }
+                rightBase = 0;
+            }
+            else if(listDeterminer == 1)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+10];
+                }
+                rightBase = 10;
+            }
+            else if(listDeterminer == 2)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+20];
+                }
+                rightBase = 20;
+            }
+            else if(listDeterminer == 3)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+30];
+                }
+                rightBase = 30;
+            }
+            else if(listDeterminer == 4)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+40];
+                }
+                rightBase = 40;
+            }
+            shuffledSuffixes.Shuffle();
             for(int i = 0; i <= 9; i++)
             {
-                rightCardsText[i].text = suffixes[i+30];
+                rightCardsText[i].text = shuffledSuffixes[i];
             }
             rightScreen.text = rightScreenOptions[7];
-            rightBase = 30;
         }
         else if(cumIndex == 28)
         {
+            int listDeterminer = UnityEngine.Random.Range(0,5);
+            if(listDeterminer == 0)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i];
+                }
+                rightBase = 0;
+            }
+            else if(listDeterminer == 1)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+10];
+                }
+                rightBase = 10;
+            }
+            else if(listDeterminer == 2)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+20];
+                }
+                rightBase = 20;
+            }
+            else if(listDeterminer == 3)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+30];
+                }
+                rightBase = 30;
+            }
+            else if(listDeterminer == 4)
+            {
+                for(int i = 0; i <= 9; i++)
+                {
+                    shuffledSuffixes[i] = suffixes[i+40];
+                }
+                rightBase = 40;
+            }
+            shuffledSuffixes.Shuffle();
             for(int i = 0; i <= 9; i++)
             {
-                rightCardsText[i].text = suffixes[i+40];
+                rightCardsText[i].text = shuffledSuffixes[i];
             }
             rightScreen.text = rightScreenOptions[8];
-            rightBase = 40;
         }
-        displayedLeftWord = leftScreen.text + prefixes[leftDisplayedScreen + leftBase];
-        displayedRightWord = rightScreen.text + suffixes[rightDisplayedScreen + rightBase];
+        displayedLeftWord = leftScreen.text + shuffledPrefixes[leftDisplayedScreen];
+        displayedRightWord = rightScreen.text + shuffledSuffixes[rightDisplayedScreen];
         leftScreenSaved = leftScreen.text;
         rightScreenSaved = rightScreen.text;
         Debug.LogFormat("[Benedict Cumberbatch #{0}] The left screen prefix is {1}.", moduleId, leftScreenSaved);
@@ -447,7 +845,9 @@ public class benedictCumberbatchScript : MonoBehaviour
             cumIndex = 0;
         }
         Debug.LogFormat("[Benedict Cumberbatch #{0}] YOUR FINAL ANSWER FOR THE RIGHT SUFFIX IS {1}.", moduleId, rightIndex);
-        Debug.LogFormat("[Benedict Cumberbatch #{0}] THE CORRECT ANSWER IS {1}{2} {3}{4}.", moduleId, leftScreenSaved, prefixes[leftIndex + leftBase], rightScreenSaved, suffixes[rightIndex + rightBase]);
+        correctLeftAnswer = leftScreenSaved + prefixes[leftIndex + leftBase];
+        correctRightAnswer = rightScreenSaved + suffixes[rightIndex + rightBase];
+        Debug.LogFormat("[Benedict Cumberbatch #{0}] THE CORRECT ANSWER IS {1} {2}.", moduleId, correctLeftAnswer, correctRightAnswer);
 
     }
 
@@ -516,7 +916,7 @@ public class benedictCumberbatchScript : MonoBehaviour
                 leftDisplayedScreen = 9;
             }
         }
-        displayedLeftWord = leftScreen.text + prefixes[leftDisplayedScreen + leftBase];
+        displayedLeftWord = leftScreen.text + shuffledPrefixes[leftDisplayedScreen];
         yield return new WaitForSeconds(0.3f);
         buttonLock = false;
     }
@@ -587,7 +987,7 @@ public class benedictCumberbatchScript : MonoBehaviour
                 rightDisplayedScreen = 9;
             }
         }
-        displayedRightWord = rightScreen.text + suffixes[rightDisplayedScreen + rightBase];
+        displayedRightWord = rightScreen.text + shuffledSuffixes[rightDisplayedScreen];
         yield return new WaitForSeconds(0.3f);
         buttonLock = false;
     }
@@ -600,7 +1000,7 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             return;
         }
-        if((displayedLeftWord == (leftScreen.text + prefixes[leftIndex + leftBase])) && (displayedRightWord == (rightScreen.text + suffixes[rightIndex + rightBase])))
+        if((displayedLeftWord == correctLeftAnswer) && (displayedRightWord == correctRightAnswer))
         {
             GetComponent<KMBombModule>().HandlePass();
             Debug.LogFormat("[Benedict Cumberbatch #{0}] You submitted {1} {2}. That is correct. Module disarmed.", moduleId, displayedLeftWord, displayedRightWord);

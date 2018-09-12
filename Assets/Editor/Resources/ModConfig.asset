@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: benedictCumberbatch
   title: Benedict Cumberbatch
-  description: 'Benedict Cumberbatch 1.0
+  description: 'Benedict Cumberbatch 1.01
 
     More like Bouncystick Crapplepatch...
 
@@ -29,13 +29,7 @@ MonoBehaviour:
     Thanks to Timwi for the manual image.
 
 
-    Manual available here: https://ktane.timwi.de/HTML/Benedict%20Cumberbatch.html
-
-    ---
-
-    Build 1.0 notes:
-
-    - Initial release'
-  version: 1.0
+    Manual available here: https://ktane.timwi.de/HTML/Benedict%20Cumberbatch.html'
+  version: 1.01
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 4a014b8fd847949aab90ae399d6de2ae, type: 3}

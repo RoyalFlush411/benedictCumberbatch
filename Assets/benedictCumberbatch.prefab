@@ -10951,6 +10951,17 @@ MonoBehaviour:
   - town
   - shack
   - ster
+  shuffledPrefixes:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   rightScreen: {fileID: 102780261586860312}
   rightScreenOptions:
   - Cumber
@@ -11036,6 +11047,17 @@ MonoBehaviour:
   - rash
   - snutch
   - flage
+  shuffledSuffixes:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!114 &114043382592533596
 MonoBehaviour:
   m_ObjectHideFlags: 1
