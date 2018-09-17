@@ -37,8 +37,6 @@ public class benedictCumberbatchScript : MonoBehaviour
     bool solveAddition;
     int totalDigits = 0;
     int totalLetters = 0;
-    private bool calculatedLeft;
-    private bool calculatedRight;
 
     public TextMesh leftScreen;
     public string[] leftScreenOptions;
@@ -639,6 +637,8 @@ public class benedictCumberbatchScript : MonoBehaviour
         rightScreenSaved = rightScreen.text;
         Debug.LogFormat("[Benedict Cumberbatch #{0}] The left screen prefix is {1}.", moduleId, leftScreenSaved);
         Debug.LogFormat("[Benedict Cumberbatch #{0}] The right screen prefix is {1}.", moduleId, rightScreenSaved);
+        CalculateLeftSuffix();
+        CalculateRightSuffix();
         StartCoroutine(ScreenBlink());
     }
 
@@ -665,21 +665,8 @@ public class benedictCumberbatchScript : MonoBehaviour
         {
             Debug.LogFormat("[Benedict Cumberbatch #{0}] More than half of the modules have now been solved. The left suffix is being recalculated.", moduleId);
             solveAddition = true;
-            calculatedLeft = true;
             leftIndex = 0;
             CalculateLeftSuffix();
-            if(!calculatedRight)
-            {
-                calculatedRight = true;
-                CalculateRightSuffix();
-            }
-        }
-        else if(!calculatedLeft)
-        {
-            calculatedLeft = true;
-            calculatedRight = true;
-            CalculateLeftSuffix();
-            CalculateRightSuffix();
         }
     }
 
@@ -764,7 +751,9 @@ public class benedictCumberbatchScript : MonoBehaviour
         Debug.LogFormat("[Benedict Cumberbatch #{0}] YOUR FINAL ANSWER FOR THE LEFT SUFFIX IS {1}.", moduleId, leftIndex);
         if(solveAddition)
         {
-            Debug.LogFormat("[Benedict Cumberbatch #{0}] THE CORRECT ANSWER IS NOW {1}{2} {3}{4}.", moduleId, leftScreenSaved, prefixes[leftIndex + leftBase], rightScreenSaved, suffixes[rightIndex + rightBase]);
+            correctLeftAnswer = leftScreenSaved + prefixes[leftIndex + leftBase];
+            correctRightAnswer = rightScreenSaved + suffixes[rightIndex + rightBase];
+            Debug.LogFormat("[Benedict Cumberbatch #{0}] THE CORRECT ANSWER IS NOW {1} {2}.", moduleId, correctLeftAnswer, correctRightAnswer);
         }
     }
 
