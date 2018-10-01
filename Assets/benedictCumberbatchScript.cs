@@ -1011,4 +1011,33 @@ public class benedictCumberbatchScript : MonoBehaviour
             }
         }
     }
+
+    private string TwitchHelpMessage = @"Use '!{0} submit bee horn' to submit the prefixes of the names. Make sure you include punctuation if there is any.";
+
+    IEnumerator ProcessTwitchCommand(string command)
+    {
+        var parts = command.ToLowerInvariant().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+        if (parts.Length == 3 && parts[0] == "submit")
+        {
+            if (!shuffledPrefixes.Contains(parts[1]) || !shuffledSuffixes.Contains(parts[2])) { yield return "sendtochaterror I don't understand what you are trying to enter! Check your work!"; yield break; }
+
+            yield return null;
+
+            while (shuffledPrefixes[leftDisplayedScreen] != parts[1])
+            {
+                if (Array.IndexOf(shuffledPrefixes, parts[1]) > leftDisplayedScreen) { OnLeftDownButton(); }
+                else { OnLeftUpButton(); }
+                yield return new WaitForSeconds(.5f);
+            }
+            while (shuffledSuffixes[rightDisplayedScreen] != parts[2])
+            {
+                if (Array.IndexOf(shuffledSuffixes, parts[2]) > rightDisplayedScreen) { OnRightDownButton(); }
+                else { OnRightUpButton(); }
+                yield return new WaitForSeconds(.5f);
+            }
+            yield return new WaitForSeconds(.5f); // This delay is needed, idk why...
+            OnSubmitButton();
+        }
+    }
 }
