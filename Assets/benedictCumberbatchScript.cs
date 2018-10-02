@@ -1012,7 +1012,7 @@ public class benedictCumberbatchScript : MonoBehaviour
         }
     }
 
-    private string TwitchHelpMessage = @"Use '!{0} submit bee horn' to submit the prefixes of the names. Make sure you include punctuation if there is any.";
+    private string TwitchHelpMessage = @"Use '!{0} submit bee horn' to submit the prefixes of the names. Use '!{0} left down' to flip the left page down. Use '!{0} submit to submit the current names. Make sure you include punctuation if there is any.";
 
     IEnumerator ProcessTwitchCommand(string command)
     {
@@ -1020,7 +1020,7 @@ public class benedictCumberbatchScript : MonoBehaviour
 
         if (parts.Length == 3 && parts[0] == "submit")
         {
-            if (!shuffledPrefixes.Contains(parts[1]) || !shuffledSuffixes.Contains(parts[2])) { yield return "sendtochaterror I don't understand what you are trying to enter! Check your work!"; yield break; }
+            if (!shuffledPrefixes.Contains(parts[1]) || !shuffledSuffixes.Contains(parts[2])) { yield return "sendtochaterror I don't understand what you are trying to enter!"; yield break; }
 
             yield return null;
 
@@ -1028,15 +1028,32 @@ public class benedictCumberbatchScript : MonoBehaviour
             {
                 if (Array.IndexOf(shuffledPrefixes, parts[1]) > leftDisplayedScreen) { OnLeftDownButton(); }
                 else { OnLeftUpButton(); }
-                yield return new WaitForSeconds(.5f);
+                yield return new WaitForSeconds(.3f);
             }
             while (shuffledSuffixes[rightDisplayedScreen] != parts[2])
             {
                 if (Array.IndexOf(shuffledSuffixes, parts[2]) > rightDisplayedScreen) { OnRightDownButton(); }
                 else { OnRightUpButton(); }
-                yield return new WaitForSeconds(.5f);
+                yield return new WaitForSeconds(.3f);
             }
-            yield return new WaitForSeconds(.5f); // This delay is needed, idk why...
+            yield return new WaitForSeconds(.3f); // This delay is needed, idk why...
+            OnSubmitButton();
+        }
+        else if (parts.Length == 2 && new[]{ "left", "right", "l", "r"}.Any(w => w == parts[0]) && new[] { "up", "down", "u", "d" }.Any(w => w == parts[1]))
+        {
+            if (parts[0] == "left" || parts[0] == "l")
+            {
+                if (parts[1] == "down" || parts[1] == "d") { OnLeftDownButton(); }
+                else { OnLeftUpButton(); }
+            }
+            else if (parts[0] == "right" || parts[0] == "r")
+            {
+                if (parts[1] == "down" || parts[1] == "d") { OnRightDownButton(); }
+                else { OnRightUpButton(); }
+            }
+        }
+        else if (parts.Length == 1 && parts[0] == "submit")
+        {
             OnSubmitButton();
         }
     }
