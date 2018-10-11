@@ -1041,6 +1041,8 @@ public class benedictCumberbatchScript : MonoBehaviour
         }
         else if (parts.Length == 2 && new[]{ "left", "right", "l", "r"}.Any(w => w == parts[0]) && new[] { "up", "down", "u", "d" }.Any(w => w == parts[1]))
         {
+            yield return null;
+
             if (parts[0] == "left" || parts[0] == "l")
             {
                 if (parts[1] == "down" || parts[1] == "d") { OnLeftDownButton(); }
