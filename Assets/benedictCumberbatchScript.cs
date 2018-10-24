@@ -68,7 +68,7 @@ public class benedictCumberbatchScript : MonoBehaviour
     string rightScreenSaved = "";
     private int leftIndex = 0;
     private int rightIndex = 0;
-
+    private bool leftLocked;
 
     //Logging
     static int moduleIdCounter = 1;
@@ -160,6 +160,7 @@ public class benedictCumberbatchScript : MonoBehaviour
         }
         else if(benIndex == 25)
         {
+            leftLocked = true;
             int listDeterminer = UnityEngine.Random.Range(0,5);
             if(listDeterminer == 0)
             {
@@ -210,6 +211,7 @@ public class benedictCumberbatchScript : MonoBehaviour
         }
         else if(benIndex == 26)
         {
+            leftLocked = true;
             int listDeterminer = UnityEngine.Random.Range(0,5);
             if(listDeterminer == 0)
             {
@@ -260,6 +262,7 @@ public class benedictCumberbatchScript : MonoBehaviour
         }
         else if(benIndex == 27)
         {
+            leftLocked = true;
             int listDeterminer = UnityEngine.Random.Range(0,5);
             if(listDeterminer == 0)
             {
@@ -310,6 +313,7 @@ public class benedictCumberbatchScript : MonoBehaviour
         }
         else if(benIndex == 28)
         {
+            leftLocked = true;
             int listDeterminer = UnityEngine.Random.Range(0,5);
             if(listDeterminer == 0)
             {
@@ -661,7 +665,7 @@ public class benedictCumberbatchScript : MonoBehaviour
     void Update()
     {
         solvedModules = Bomb.GetSolvedModuleNames().Count;
-        if(solvedModules > (totalModules / 2) && !solveAddition && !buttonLock)
+        if(solvedModules > (totalModules / 2) && !solveAddition && !buttonLock && !leftLocked)
         {
             Debug.LogFormat("[Benedict Cumberbatch #{0}] More than half of the modules have now been solved. The left suffix is being recalculated.", moduleId);
             solveAddition = true;
