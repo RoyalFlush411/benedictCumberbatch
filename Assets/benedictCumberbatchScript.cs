@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using benedictCumberbatch;
+using KModkit;
 
 public static class Extensions
 {
@@ -857,8 +857,8 @@ public class benedictCumberbatchScript : MonoBehaviour
             buttonLock = true;
             leftCards[leftDisplayedScreen].SetBool("move", true);
             Audio.PlaySoundAtTransform("pageTurn", transform);
-            StartCoroutine(stopLeftMove());
             leftMovingUp = true;
+            StartCoroutine(stopLeftMove());
         }
     }
 
@@ -881,7 +881,7 @@ public class benedictCumberbatchScript : MonoBehaviour
 
     IEnumerator stopLeftMove()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         if(leftMovingUp)
         {
             leftCards[leftDisplayedScreen].SetBool("move", false);
@@ -928,8 +928,8 @@ public class benedictCumberbatchScript : MonoBehaviour
             buttonLock = true;
             rightCards[rightDisplayedScreen].SetBool("move", true);
             Audio.PlaySoundAtTransform("pageTurn", transform);
-            StartCoroutine(stopRightMove());
             rightMovingUp = true;
+            StartCoroutine(stopRightMove());
         }
     }
 
@@ -952,7 +952,7 @@ public class benedictCumberbatchScript : MonoBehaviour
 
     IEnumerator stopRightMove()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         if(rightMovingUp)
         {
             rightCards[rightDisplayedScreen].SetBool("move", false);
@@ -1030,18 +1030,17 @@ public class benedictCumberbatchScript : MonoBehaviour
 
             while (shuffledPrefixes[leftDisplayedScreen] != parts[1])
             {
-                if (Array.IndexOf(shuffledPrefixes, parts[1]) > leftDisplayedScreen) { OnLeftDownButton(); }
-                else { OnLeftUpButton(); }
-                yield return new WaitForSeconds(.3f);
+                if (Array.IndexOf(shuffledPrefixes, parts[1]) > leftDisplayedScreen) { leftDown.OnInteract(); }
+                else { leftUp.OnInteract(); }
+                while (buttonLock) { yield return null; }
             }
             while (shuffledSuffixes[rightDisplayedScreen] != parts[2])
             {
-                if (Array.IndexOf(shuffledSuffixes, parts[2]) > rightDisplayedScreen) { OnRightDownButton(); }
-                else { OnRightUpButton(); }
-                yield return new WaitForSeconds(.3f);
+                if (Array.IndexOf(shuffledSuffixes, parts[2]) > rightDisplayedScreen) { rightDown.OnInteract(); }
+                else { rightUp.OnInteract(); }
+                while (buttonLock) { yield return null; }
             }
-            yield return new WaitForSeconds(.3f); // This delay is needed, idk why...
-            OnSubmitButton();
+            submit.OnInteract();
         }
         else if (parts.Length == 2 && new[]{ "left", "right", "l", "r"}.Any(w => w == parts[0]) && new[] { "up", "down", "u", "d" }.Any(w => w == parts[1]))
         {
@@ -1049,18 +1048,24 @@ public class benedictCumberbatchScript : MonoBehaviour
 
             if (parts[0] == "left" || parts[0] == "l")
             {
-                if (parts[1] == "down" || parts[1] == "d") { OnLeftDownButton(); }
-                else { OnLeftUpButton(); }
+                if (parts[1] == "down" || parts[1] == "d") { leftDown.OnInteract(); }
+                else { leftUp.OnInteract(); }
             }
             else if (parts[0] == "right" || parts[0] == "r")
             {
-                if (parts[1] == "down" || parts[1] == "d") { OnRightDownButton(); }
-                else { OnRightUpButton(); }
+                if (parts[1] == "down" || parts[1] == "d") { rightDown.OnInteract(); }
+                else { rightUp.OnInteract(); }
             }
         }
         else if (parts.Length == 1 && parts[0] == "submit")
         {
-            OnSubmitButton();
+            submit.OnInteract();
         }
+    }
+
+    IEnumerator TwitchHandleForcedSolve()
+    {
+        while (Bomb.GetSolvedModuleNames().Count != solvedModules) { yield return null; };
+        yield return ProcessTwitchCommand("submit " + prefixes[leftIndex + leftBase] + " " + suffixes[rightIndex + rightBase]);
     }
 }

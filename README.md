@@ -1,1 +1,1 @@
-Benedict Cumberbatch
+#[ModKit Wiki](../../wiki)
